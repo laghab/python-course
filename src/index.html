@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python for Beginners</title>
+<meta name="description" content="An interactive Python course: 102 short lessons, each with a challenge you solve in the browser.">
+<meta name="color-scheme" content="light dark">
+<link rel="preload" href="/python/fonts/serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/python/fonts/mono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/python/__CSS__">
+<script>
+  // apply the theme before first paint
+  try { var t = JSON.parse(localStorage.getItem('pc.theme') || '"auto"'); if (t !== 'auto') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#page">Skip to lesson</a>
+
+<header class="masthead">
+  <button class="title" id="contentsBtn" type="button" aria-haspopup="dialog">
+    <span class="title-main">Python for Beginners</span>
+    <span class="title-sub">Contents</span>
+  </button>
+  <nav class="pager" aria-label="Lesson navigation">
+    <button type="button" id="prevBtn" class="link" aria-keyshortcuts="[">‹ Previous</button>
+    <span class="folio" id="folio"></span>
+    <button type="button" id="nextBtn" class="link" aria-keyshortcuts="]">Next ›</button>
+  </nav>
+  <div class="progress" id="progress" role="img" aria-label=""><span></span></div>
+  <button type="button" class="link" id="helpBtn" aria-keyshortcuts="?" title="Keyboard shortcuts (?)">Shortcuts</button>
+  <button type="button" class="link" id="settingsBtn" aria-keyshortcuts="," title="Settings (,)">Settings</button>
+</header>
+
+<main class="split" id="split">
+  <article class="page" id="page" tabindex="-1" aria-live="off"></article>
+  <div class="gutter gutter-v" id="gutterV" role="separator" aria-orientation="vertical" aria-label="Resize lesson and editor" tabindex="0"></div>
+  <section class="bench" id="bench" aria-label="Code">
+    <div class="toolbar">
+      <span class="filename" id="filename">lesson.py</span>
+      <span class="spacer"></span>
+      <button type="button" class="link" id="resetBtn" title="Reset to starter code">Reset</button>
+      <button type="button" class="btn" id="runBtn" aria-keyshortcuts="Control+' Meta+'">Run</button>
+      <button type="button" class="btn ink" id="submitBtn" aria-keyshortcuts="Control+Enter Meta+Enter">Submit</button>
+    </div>
+    <div class="editor" id="editor"></div>
+    <div class="statusline" id="statusline">
+      <span class="mode" id="mode" hidden></span>
+      <span id="pos">Ln 1, Col 1</span>
+      <span class="spacer"></span>
+      <span id="py">Python loading…</span>
+    </div>
+    <div class="gutter gutter-h" id="gutterH" role="separator" aria-orientation="horizontal" aria-label="Resize editor and console" tabindex="0"></div>
+    <section class="console" id="console" aria-label="Console">
+      <div class="console-head">
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" class="tab" data-tab="out" aria-selected="true">Output</button>
+          <button type="button" role="tab" class="tab" data-tab="exp" aria-selected="false">Expected</button>
+          <button type="button" role="tab" class="tab" data-tab="in" aria-selected="false" id="stdinTab" hidden>Input</button>
+        </div>
+        <span class="verdict" id="verdict" role="status" aria-live="polite"></span>
+      </div>
+      <div class="console-body" id="consoleBody"></div>
+    </section>
+  </section>
+</main>
+
+<dialog id="contents" class="sheet toc" aria-label="Contents">
+  <header><h2>Contents</h2><input id="tocFilter" type="search" placeholder="Filter lessons…" aria-label="Filter lessons" autocomplete="off"></header>
+  <div id="tocList" class="toc-list"></div>
+  <footer><span id="tocCount"></span><button type="button" class="link" id="resetAll">Erase all progress</button></footer>
+</dialog>
+
+<dialog id="help" class="sheet" aria-label="Keyboard shortcuts">
+  <header><h2>Keyboard shortcuts</h2><button type="button" class="link close" data-close>Close</button></header>
+  <div id="helpBody" class="help-body" tabindex="-1" autofocus data-autofocus></div>
+</dialog>
+
+<dialog id="settings" class="sheet narrow" aria-label="Settings">
+  <header><h2>Settings</h2><button type="button" class="link close" data-close>Close</button></header>
+  <div class="settings-body" tabindex="-1" autofocus data-autofocus>
+    <fieldset>
+      <legend>Theme</legend>
+      <label><input type="radio" name="theme" value="auto"> Follow system</label>
+      <label><input type="radio" name="theme" value="light"> Paper</label>
+      <label><input type="radio" name="theme" value="dark"> Ink</label>
+    </fieldset>
+    <fieldset>
+      <legend>Editor</legend>
+      <label><input type="checkbox" id="optVim"> Vim keybindings</label>
+      <label class="row">Font size <input type="range" id="optSize" min="12" max="20" step="1"> <output id="optSizeOut"></output></label>
+    </fieldset>
+    <fieldset>
+      <legend>Keyboard</legend>
+      <label><input type="checkbox" id="optKeys"> Single-key shortcuts (<kbd>]</kbd>, <kbd>/</kbd>, <kbd>?</kbd>…)</label>
+      <p class="fine">They only work when the editor isn’t focused. Turn them off if they get in the way of a screen reader or voice control.</p>
+    </fieldset>
+  </div>
+</dialog>
+
+<script type="module" src="/python/__JS__"></script>
+</body>
+</html>
