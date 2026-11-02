@@ -33,6 +33,7 @@ const css = outputs.find((f) => f.startsWith('style-') && f.endsWith('.css'));
 
 writeFileSync(join(OUT, 'index.html'), readFileSync('src/index.html', 'utf8').replace('__JS__', js).replace('__CSS__', css));
 copyFileSync('src/worker.js', join(OUT, 'worker.js'));
+for (const f of readdirSync('src/icons')) copyFileSync(join('src/icons', f), join(OUT, f));
 
 const fonts = {
   'serif.woff2': 'node_modules/@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2',
@@ -50,7 +51,7 @@ for (const f of readdirSync(OUT)) {
 }
 
 if (process.argv.includes('--serve')) {
-  const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.woff2': 'font/woff2' };
+  const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/x-icon' };
   createServer((req, res) => {
     let url = decodeURIComponent(req.url.split('?')[0]);
     if (url === '/' ) { res.writeHead(302, { Location: '/python/' }); return res.end(); }
