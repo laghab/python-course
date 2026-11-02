@@ -54,8 +54,10 @@ export function createEditor(parent, { onRun, onSubmit, onChange, onCursor, onMo
   const fontSize = (px) => EditorView.theme({ '.cm-scroller': { fontSize: px + 'px' } });
 
   const appKeys = Prec.highest(keymap.of([
-    { key: 'Mod-Enter', run: () => { onSubmit(); return true; } },
-    { key: "Mod-'", run: () => { onRun(); return true; } },
+    // Keyboard run/submit also leave the editor, so ] can go straight to the next lesson.
+    { key: 'Mod-Enter', run: () => { onSubmit({ leave: true }); return true; } },
+    { key: "Mod-'", run: () => { onRun({ leave: true }); return true; } },
+    { key: 'Mod-`', run: () => { onRun({ leave: true }); return true; } },
   ]));
 
   // Esc leaves the editor: always in plain mode; in vim mode only from NORMAL.

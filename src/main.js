@@ -41,8 +41,8 @@ const runner = createRunner('/python/worker.js', (s) => {
 /* ---------------- editor ---------------- */
 let saveTimer = null;
 const editor = createEditor($('editor'), {
-  onRun: () => exec(false),
-  onSubmit: () => exec(true),
+  onRun: (o) => exec(false, o),
+  onSubmit: (o) => exec(true, o),
   onChange: (text) => { clearTimeout(saveTimer); saveTimer = setTimeout(() => store.set('code.' + state.cur, text), 250); },
   onCursor: (ln, col) => { $('pos').textContent = `Ln ${ln}, Col ${col}`; },
   onModeChange: (m) => {
@@ -144,7 +144,8 @@ function showTab(t) {
   }
 }
 
-async function exec(submit) {
+async function exec(submit, { leave = false } = {}) {
+  if (leave) $('page').focus({ preventScroll: true });
   if (state.busy) return;
   state.busy = true;
   const l = LESSONS[state.cur];
@@ -310,7 +311,7 @@ sc.attach();
 document.addEventListener('keydown', (e) => {
   if (!(e.ctrlKey || e.metaKey) || e.altKey || e.target.closest?.('.cm-editor') || document.querySelector('dialog[open]')) return;
   if (e.key === 'Enter') { e.preventDefault(); exec(true); }
-  else if (e.key === "'") { e.preventDefault(); exec(false); }
+  else if (e.key === "'" || e.key === '`') { e.preventDefault(); exec(false); }
 });
 
 function renderHelp() {
@@ -319,8 +320,8 @@ function renderHelp() {
   const row = (keys, desc) => `<tr><td class="keys">${keys}</td><td>${desc}</td></tr>`;
   let html = '<div class="help-cols">';
   html += `<section><h3>Anywhere, even in the editor</h3><table>
-    ${row(`${kbd(MOD)} ${kbd('Enter')}`, 'Submit')}
-    ${row(`${kbd(MOD)} ${kbd("'")}`, 'Run')}
+    ${row(`${kbd(MOD)} ${kbd('Enter')}`, 'Submit, then leave the editor (so <kbd>]</kbd> goes on)')}
+    ${row(`${kbd(MOD)} ${kbd("'")} <span class="then">or</span> ${kbd(MOD)} ${kbd('`')}`, 'Run, then leave the editor')}
     ${row(kbd('Esc'), 'Leave the editor, or close a panel')}
     ${row(kbd('Tab'), 'Indent (in the editor). Press Esc first to move focus on')}
   </table></section>`;

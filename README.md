@@ -13,8 +13,8 @@ The order of topics follows NeetCode's free YouTube courses *Python for Beginner
 
 | Key | Action |
 |---|---|
-| <kbd>Ctrl</kbd>/<kbd>⌘</kbd> <kbd>Enter</kbd> | Submit |
-| <kbd>Ctrl</kbd>/<kbd>⌘</kbd> <kbd>'</kbd> | Run |
+| <kbd>Ctrl</kbd>/<kbd>⌘</kbd> <kbd>Enter</kbd> | Submit, then leave the editor so <kbd>]</kbd> goes to the next lesson |
+| <kbd>Ctrl</kbd>/<kbd>⌘</kbd> <kbd>'</kbd> or <kbd>`</kbd> | Run, then leave the editor |
 | <kbd>Esc</kbd> | Leave the editor / close a panel |
 | <kbd>?</kbd> | All shortcuts |
 | <kbd>/</kbd> or <kbd>g</kbd> <kbd>c</kbd> | Contents and search |
