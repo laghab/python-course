@@ -23,6 +23,7 @@ The order of topics follows NeetCode's free YouTube courses *Python for Beginner
 | <kbd>j</kbd> / <kbd>k</kbd>, <kbd>g</kbd> <kbd>g</kbd> / <kbd>G</kbd> | Scroll the lesson |
 | <kbd>s</kbd> | Show or hide the solution |
 | <kbd>e</kbd> | Focus the editor |
+| <kbd>r</kbd> | Reset to the starter code (undo with Ctrl/⌘+Z) |
 | <kbd>t</kbd> | Cycle theme |
 | <kbd>,</kbd> | Settings |
 

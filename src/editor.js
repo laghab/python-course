@@ -144,6 +144,10 @@ export function createEditor(parent, { onRun, onSubmit, onChange, onCursor, onMo
       if (vimOn) { hookMode(); onModeChange('normal'); }
       onCursor(1, 1);
     },
+    // Replace the text as one undoable change (Ctrl+Z or vim u brings it back).
+    replace(text) {
+      view.dispatch({ changes: { from: 0, to: view.state.doc.length, insert: text }, selection: { anchor: 0 }, userEvent: 'input.reset' });
+    },
     focus: () => view.focus(),
     async setVim(on) {
       if (on) { await loadVim(); defineEx(vimMod.Vim); }

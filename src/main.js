@@ -183,11 +183,13 @@ async function exec(submit, { leave = false } = {}) {
   showTab('out');
 }
 
+// No confirm dialog: the reset is a normal edit, so undo restores your code.
 function resetCode() {
-  if (!confirm('Replace your code with the starter code?')) return;
   const s = LESSONS[state.cur].starter;
+  if (editor.get() === s) { flash('This is already the starter code'); return; }
+  editor.replace(s);
   store.set('code.' + state.cur, s);
-  editor.set(s);
+  flash(`Starter code restored. ${MOD}+Z in the editor${prefs.vim ? ' (or u)' : ''} undoes it`, 4000);
 }
 
 function toggleSolution() {
@@ -274,12 +276,12 @@ $('optKeys').onchange = (e) => { prefs.keys = e.target.checked; store.set('keys'
 $('optSize').oninput = (e) => { prefs.size = +e.target.value; store.set('size', prefs.size); $('optSizeOut').textContent = prefs.size + 'px'; editor.setFontSize(prefs.size); };
 
 let flashTimer;
-function flash(msg) {
+function flash(msg, ms = 1400) {
   const v = $('verdict');
   const prev = [v.textContent, v.dataset.kind];
   setVerdict(msg, 'info');
   clearTimeout(flashTimer);
-  flashTimer = setTimeout(() => setVerdict(prev[0], prev[1]), 1400);
+  flashTimer = setTimeout(() => setVerdict(prev[0], prev[1]), ms);
 }
 
 /* ---------------- shortcuts ---------------- */
@@ -303,6 +305,7 @@ sc
   .add({ group: 'Reading', keys: ['G'], desc: 'End of lesson', run: () => (page.scrollTop = page.scrollHeight) })
   .add({ group: 'Reading', keys: ['s'], desc: 'Show or hide the solution', run: toggleSolution })
   .add({ group: 'Working', keys: ['e', 'i'], desc: 'Focus the editor', run: () => editor.focus() })
+  .add({ group: 'Working', keys: ['r'], desc: 'Reset to the starter code (undoable)', run: resetCode })
   .add({ group: 'Working', keys: ['t'], desc: 'Cycle theme (system, paper, ink)', run: cycleTheme })
   .add({ group: 'Working', keys: [','], desc: 'Settings', run: () => openDialog('settings') });
 sc.attach();
